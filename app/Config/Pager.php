@@ -24,6 +24,9 @@ class Pager extends BaseConfig
         'default_full'   => 'CodeIgniter\Pager\Views\default_full',
         'default_simple' => 'CodeIgniter\Pager\Views\default_simple',
         'default_head'   => 'CodeIgniter\Pager\Views\default_head',
+        'page_dataPegawai' => 'App\Views\Petugas\Pagers\page_dataPegawai',
+        'page_dataSekolah' => 'App\Views\Petugas\Pagers\page_dataSekolah',
+
     ];
 
     /**

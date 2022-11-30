@@ -1,11 +1,14 @@
+<?php $session = session(); ?>
+<?php $akses = $session->role; ?>
+<?php $nama_user = $session->nama_user; ?>
 <div class="wrapper">
 
     <!-- Preloader -->
-    <div class="preloader flex-column justify-content-center align-items-center">
+    <!-- <div class="preloader flex-column justify-content-center align-items-center">
         <img class="animation__shake" src="dist/img/SemarangLogo.png" alt="SeemarangLogo" height="60" width="60">
         <h2> Dinas Pendidikan Kota Semarang </h2>
         <h3> Sistem Pengelolaan Data Pegawai ASN </h3>
-    </div>
+    </div> -->
 
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-dark navbar-light">
@@ -17,15 +20,12 @@
         </ul>
         <ul class="navbar-nav ml-auto">
             <!-- Navbar user panel (optional) -->
+            <li class="nav-item d-none d-sm-inline-block" style="margin-right:30px;color:white;">
+                <img src="dist/img/admin.png" class=" img-circle" alt="User Image" width="30" height="30">
+                <a><?= $nama_user; ?></a>
+            </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <div class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button">
-                    <img src="dist/img/admin.png" class=" img-circle" alt="User Image" width="30" height="30">
-                    <a>Admin</a>
-                    <ul class="dropdown-menu">
-                        <!--li class="dropdown-item" href="#">Ubah Password</li-->
-                        <li class="dropdown-item" href="<?= base_url('/auth'); ?>">Logout</li>
-                    </ul>
-                </div>
+                <a href="<?= site_url('auth/logout'); ?>"> <button class="btn btn-info nav-item align-self-md-end" styles="text-color: #ffff;">Logout</button> </a>
             </li>
         </ul>
     </nav>

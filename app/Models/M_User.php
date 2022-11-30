@@ -26,6 +26,14 @@ class M_User extends Model
         return $this->where(['slug' => $slug])->first();
     }
 
+    public function hitungUser()
+    {
+        $db      = \Config\Database::connect();
+        $builder = $db->table('users');
+        $jml_usr = $builder->countAll();
+        return $jml_usr;
+    }
+
     public function getNamaUser($nama_user)
     {
         $db      = \Config\Database::connect();

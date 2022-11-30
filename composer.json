@@ -5,8 +5,15 @@
     "homepage": "https://codeigniter.com",
     "license": "MIT",
     "require": {
-        "php": "^7.4 || ^8.0",
-        "codeigniter4/framework": "^4.0"
+        "php": "^7.4 | ^8.0",
+        "codeigniter4/framework": "^4.0",
+        "phpoffice/phpspreadsheet": "^1.25",
+        "dompdf/dompdf": "^2.0"
+    },
+    "config": {
+        "platform": {
+            "php": "7.4"
+        }
     },
     "require-dev": {
         "fakerphp/faker": "^1.9",

@@ -13,7 +13,7 @@
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="<?= base_url('/admin'); ?>#">Home</a></li>
                         <li class="breadcrumb-item"><a href="<?= base_url('/admin/user/'); ?>#">Data Pengguna</a></li>
-                        <li class="breadcrumb-item" active>Tambah Data Pengguna</li>
+                        <li class="breadcrumb-item" active>Ubah Data Pengguna</li>
                     </ol>
                 </div>
             </div>
@@ -44,11 +44,12 @@
                                         </div>
                                         <div class="col">
                                             <label for="password">Password</label>
-                                            <input type="text" id="password" class="form-control" name="password" value="<?= $users['password']; ?>">
+                                            <input type="password" id="password" class="form-control" name="password" value="<?= $users['password']; ?>">
                                         </div>
                                         <div class="col">
                                             <label for="akses">Hak Akses</label>
-                                            <select name="akses" class="form-control select">
+                                            <select id="akses" name="akses" class="form-control select">
+                                                <!-- <option value="</?= old('akses') ?>"></?= old('akses') ?></option> -->
                                                 <option value=""></option>
                                                 <option value="Semua">Semua</option>
                                                 <option value="TK">TK</option>
@@ -62,7 +63,7 @@
                         </div>
 
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="submit" class="btn btn-primary float-right">Simpan</button>
                         </div>
                         </form>
                     </div>

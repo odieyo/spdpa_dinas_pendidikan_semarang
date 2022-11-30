@@ -39,13 +39,9 @@
                             <div class="col-sm-12 col-md-6">
                                 <a href="<?= base_url('/admin/user/tambah'); ?>" type="button" class="btn btn-success"><i class="fas fa-plus"></i> Tambah Pengguna</a>
                             </div>
-                            <div class="col-sm-12 col-md-6" style="width : 100%;">
-                                <label>Cari: </label>
-                                <input type="form" method="get">
-                            </div>
                         </div>
                         <div class="row">
-                            <table id="example1" class="table table-bordered table-striped">
+                            <table id="tabel_user" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
                                         <th>No</th>
@@ -66,13 +62,25 @@
                                             <td><?= $usr['password']; ?></td>
                                             <td><?= $usr['akses']; ?></td>
                                             <td>
-                                                <a href="/admin/user/ubah/<?= $usr['slug']; ?>" type="button" class="btn btn-info">
+                                                <a href="/admin/user/ubah/<?= $usr['slug']; ?>" type="button" class="btn btn-info btn-sm">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <form action="/admin/user/hapus/<?= $usr['id_user']; ?>" method="post" class="d-inline">
+                                                    <?= csrf_field(); ?>
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin?');">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                            <!-- <td>
+                                                <a href="/admin/user/ubah/</?= $usr['slug']; ?>" type="button" class="btn btn-info">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
                                                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#hapusModal">
                                                     <i class="fas fa-trash"></i>
                                                 </button>
-                                            </td>
+                                            </td> -->
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>

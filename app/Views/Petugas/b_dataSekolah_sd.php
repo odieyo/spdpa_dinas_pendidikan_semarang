@@ -1,6 +1,22 @@
 <?php echo $this->extend('petugas/layout/template'); ?>
+<?php
+
+use App\Models\M_Pegawai;
+
+$this->m_pegawai = new M_Pegawai(); ?>
 
 <?= $this->section('content') ?>
+<style type="text/css">
+    .dataTables_filter {
+        float: right;
+    }
+
+    .dataTables_paginate {
+        float: right;
+    }
+
+    /* .dataTables_length {} */
+</style>
 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -13,7 +29,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="<?= base_url('/petugas'); ?>#">Home</a></li>
-                        <li class="breadcrumb-item active">Data Sekolah </li>
+                        <li class="breadcrumb-item active"><a href="<?= base_url('/petugas/sd'); ?>">Data Sekolah / SD </a> </li>
                     </ol>
                 </div>
             </div>
@@ -26,25 +42,27 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h1 class="card-title"><?= $jenjang; ?></h1>
+                        <h1 class="card-title">Sekolah Dasar</h1>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
+
                         <?php if (session()->getFlashdata('notifikasi')) : ?>
                             <div class="alert alert-success" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                 <?= session()->getFlashdata('notifikasi'); ?>
+                            </div>
+                        <?php endif; ?>
+                        <?php if (session()->getFlashdata('error')) : ?>
+                            <div class="alert alert-danger" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <?= session()->getFlashdata('error') ?>
                             </div>
                         <?php endif; ?>
                         <div class="row ml-auto mb-3">
                             <div class="col">
-                                <a href="<?= base_url('/petugas/sekolah/tambah'); ?>" type="button" class="btn btn-success"><i class="fas fa-plus"></i> Tambah Sekolah</a>
-                                <a type="button" class="btn btn-info ml-1"><i class="fas fa-file-csv"></i> Import CSV</a>
-                            </div>
-                            <div class="col-md-4 ">
-                                <form method="post" action="#">
-                                    <label>Cari :</label>
-                                    <input type="text" name="#">
-                                </form>
+                                <a href="<?= base_url('/petugas/sd/tambah/'); ?>" type="button" class="btn btn-success"><i class="fas fa-plus"></i> Tambah Sekolah</a>
+                                <button type="button" class="btn btn-info ml-1" data-toggle="modal" data-target="#importModal"><i class="fas fa-file-csv"></i> Import CSV</button>
                             </div>
                         </div>
 
@@ -60,9 +78,6 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="custom-tabs-four-gurukelas-tab" data-toggle="pill" href="#custom-tabs-four-gurukelas" role="tab" aria-controls="custom-tabs-four-gurukelas" aria-selected="false">Guru Kelas</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="custom-tabs-four-gurumatpel-tab" data-toggle="pill" href="#custom-tabs-four-gurumatpel" role="tab" aria-controls="custom-tabs-four-gurumatpel" aria-selected="false">Guru Mata Pelajaran</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" id="custom-tabs-four-guruPA-tab" data-toggle="pill" href="#custom-tabs-four-guruPA" role="tab" aria-controls="custom-tabs-four-guruPA" aria-selected="false">Guru Pendidikan Agama</a>
@@ -81,18 +96,20 @@
 
                             <!-- Isi Tab -->
                             <div class="card-body">
+
                                 <div class="tab-content" id="custom-tabs-four-tabContent">
+
                                     <!-- Tab Info -->
                                     <div class="tab-pane fade show active" id="custom-tabs-four-info" role="tabpanel" aria-labelledby="custom-tabs-four-info-tab">
-                                        <table class="table table-bordered">
+                                        <table class="table table-bordered text-center" id="tabel_sekolah">
                                             <?php $i = 1; ?>
                                             <thead style="text-align:center;">
                                                 <tr>
                                                     <th>No</th>
+                                                    <th>NPSN</th>
                                                     <th>Nama Sekolah</th>
                                                     <th>Kecamatan</th>
                                                     <th>Rombongan Belajar</th>
-                                                    <th>Alamat</th>
                                                     <th>Aksi</th>
                                                 </tr>
                                             </thead>
@@ -100,29 +117,31 @@
                                                 <?php foreach ($sekolah as $skl) : ?>
                                                     <tr>
                                                         <td><?= $i++ ?></td>
+                                                        <td><?= $skl['npsn']; ?></td>
                                                         <td><?= $skl['nama_sekolah']; ?></td>
                                                         <td><?= $skl['kecamatan']; ?></td>
                                                         <td><?= $skl['rombel']; ?></td>
-                                                        <td><?= $skl['alamat']; ?></td>
                                                         <td>
-                                                            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#ModalSekolah">
-                                                                <i class="fas fa-eye"></i>
-                                                            </button>
-                                                            <a href="/petugas/sd/<?= $skl['slug']; ?>" type="button" class="btn btn-info">
+                                                            <a href="/petugas/sd/<?= $skl['slug']; ?>" type="button" class="btn btn-info btn-sm">
                                                                 <i class="fas fa-edit"></i>
                                                             </a>
-                                                            <button type="button" class="btn btn-danger">
-                                                                <i class="fas fa-trash"></i>
-                                                            </button>
+                                                            <form action="/petugas/sekolah/<?= $skl['npsn']; ?>" method="post" class="d-inline">
+                                                                <?= csrf_field(); ?>
+                                                                <input type="hidden" name="_method" value="DELETE">
+                                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin?');">
+                                                                    <i class="fas fa-trash"></i>
+                                                                </button>
+                                                            </form>
                                                         </td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
                                         </table>
                                     </div>
+
                                     <!-- Tab Kepala Sekolah -->
                                     <div class="tab-pane fade" id="custom-tabs-four-kepalasekolah" role="tabpanel" aria-labelledby="custom-tabs-four-kepalasekolah-tab">
-                                        <table class="table table-bordered ">
+                                        <table class="table table-bordered text-center" id="tabel_sekolah1">
                                             <?php $i = 1; ?>
                                             <thead style="text-align:center;">
                                                 <tr>
@@ -139,19 +158,19 @@
                                                     <tr>
                                                         <td><?= $i++ ?></td>
                                                         <td><?= $skl['nama_sekolah']; ?></td>
-                                                        <td><? $skl['nama_ks']; ?> </td>
+                                                        <td><?= $this->m_pegawai->getKS($skl['npsn']); ?> </td>
                                                         <td><?= $skl['kepala_sekolah']; ?></td>
-                                                        <td><? $jml_ks ?> </td>
-                                                        <td><? $hasil_ks  ?></td>
+                                                        <td><?= $this->m_pegawai->hitungKS($skl['npsn']); ?> </td>
+                                                        <td><?= $this->m_pegawai->hitungKS($skl['npsn']) - $skl['kepala_sekolah']; ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
                                         </table>
                                     </div>
+
                                     <!-- Tabel Guru Kelas-->
-                                    <?php ?>
                                     <div class="tab-pane fade" id="custom-tabs-four-gurukelas" role="tabpanel" aria-labelledby="custom-tabs-four-gurukelas-tab">
-                                        <table class="table table-bordered">
+                                        <table class="table table-bordered text-center" id="tabel_sekolah2">
                                             <?php $i = 1; ?>
                                             <thead style="text-align:center; vertical-align:middle;">
                                                 <tr>
@@ -169,119 +188,25 @@
                                             </thead>
                                             <tbody>
                                                 <?php foreach ($sekolah as $skl) : ?>
+                                                    <?php $gk =  $this->m_pegawai->hitungGuruKelas($skl['npsn']);  ?>
                                                     <tr>
                                                         <td><?= $i++ ?></td>
                                                         <td><?= $skl['nama_sekolah']; ?></td>
                                                         <td><?= $skl['guru_kelas']; ?></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
+                                                        <td><?= $gk['gPNS']; ?></td>
+                                                        <td><?= $gk['gPPPK']; ?></td>
+                                                        <td><?= $gk['gNonPNS']; ?></td>
+                                                        <td><?= $gk['gPNS'] + $gk['gPPPK'] + $gk['gNonPNS'] - $skl['guru_kelas']; ?></td>
 
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
                                         </table>
                                     </div>
-                                    <!-- Tabel Guru Mata Pelajaran -->
-                                    <div class="tab-pane fade" id="custom-tabs-four-gurumatpel" role="tabpanel" aria-labelledby="custom-tabs-four-gurumatpel-tab" style="overflow-x:auto;">
-                                        <table class="table table-bordered">
-                                            <?php $i = 1; ?>
-                                            <thead style="text-align:center; vertical-align:middle;">
-                                                <tr>
-                                                    <th rowspan="2">No</th>
-                                                    <th rowspan="2">Nama Sekolah</th>
-                                                    <th rowspan="2">Kebutuhan Guru IPA</th>
-                                                    <th colspan="3">Guru IPA</th>
-                                                    <th rowspan="2">Kebutuhan Guru IPS</th>
-                                                    <th colspan="3">Guru IPS</th>
-                                                    <th rowspan="2">Kebutuhan Guru Seni Budaya</th>
-                                                    <th colspan="3">Guru Seni Budaya</th>
-                                                    <th rowspan="2">Kebutuhan Guru TIK</th>
-                                                    <th colspan="3">Guru TIK</th>
-                                                    <th rowspan="2">Kebutuhan Guru PKN</th>
-                                                    <th colspan="3">Guru PKN</th>
-                                                    <th rowspan="2">Kebutuhan Guru Bahasa Indonesia</th>
-                                                    <th colspan="3">Guru Bahasa Indonesia</th>
-                                                    <th rowspan="2">Kebutuhan Guru Bahasa Inggris</th>
-                                                    <th colspan="3">Guru Bahasa Inggris</th>
-                                                    <th rowspan="2">Kebutuhan Guru Matematika</th>
-                                                    <th colspan="3">Guru Matematika</th>
-                                                    <th rowspan="2">+/-</th>
-                                                </tr>
-                                                <tr>
-                                                    <th>PNS</th>
-                                                    <th>PPPK</th>
-                                                    <th>Non PNS</th>
-                                                    <th>PNS</th>
-                                                    <th>PPPK</th>
-                                                    <th>Non PNS</th>
-                                                    <th>PNS</th>
-                                                    <th>PPPK</th>
-                                                    <th>Non PNS</th>
-                                                    <th>PNS</th>
-                                                    <th>PPPK</th>
-                                                    <th>Non PNS</th>
-                                                    <th>PNS</th>
-                                                    <th>PPPK</th>
-                                                    <th>Non PNS</th>
-                                                    <th>PNS</th>
-                                                    <th>PPPK</th>
-                                                    <th>Non PNS</th>
-                                                    <th>PNS</th>
-                                                    <th>PPPK</th>
-                                                    <th>Non PNS</th>
-                                                    <th>PNS</th>
-                                                    <th>PPPK</th>
-                                                    <th>Non PNS</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php foreach ($sekolah as $skl) : ?>
-                                                    <tr>
-                                                        <td><?= $i++ ?></td>
-                                                        <td><?= $skl['nama_sekolah']; ?></td>
-                                                        <td><?= $skl['guru_kelas']; ?></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
 
-                                                    </tr>
-                                                <?php endforeach; ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
                                     <!-- Tabel Guru PA -->
                                     <div class="tab-pane fade" id="custom-tabs-four-guruPA" role="tabpanel" aria-labelledby="custom-tabs-four-guruPA-tab" style="overflow-x:auto;">
-                                        <table class="table table-bordered ">
+                                        <table class="table table-bordered text-center" id="tabel_sekolah3">
                                             <?php $i = 1; ?>
                                             <thead style="text-align:center;">
                                                 <tr>
@@ -323,42 +248,44 @@
                                             </thead>
                                             <tbody>
                                                 <?php foreach ($sekolah as $skl) : ?>
+                                                    <?php $ga =  $this->m_pegawai->hitungGuruAgama($skl['npsn']);  ?>
                                                     <tr>
                                                         <td><?= $i++ ?></td>
                                                         <td><?= $skl['nama_sekolah']; ?></td>
                                                         <td><?= $skl['guru_pai']; ?></td>
-                                                        <td> </td>
-                                                        <td> </td>
-                                                        <td> </td>
-                                                        <td> </td>
+                                                        <td><?= $ga['isPNS']; ?></td>
+                                                        <td><?= $ga['isPPPK']; ?></td>
+                                                        <td><?= $ga['isNonPNS']; ?></td>
+                                                        <td><?= $ga['isPNS'] + $ga['isPPPK'] + $ga['isNonPNS'] - $skl['guru_pai']; ?></td>
                                                         <td><?= $skl['guru_kristen']; ?></td>
-                                                        <td> </td>
-                                                        <td> </td>
-                                                        <td> </td>
-                                                        <td> </td>
+                                                        <td><?= $ga['krPNS']; ?></td>
+                                                        <td><?= $ga['krPPPK']; ?></td>
+                                                        <td><?= $ga['krNonPNS']; ?></td>
+                                                        <td><?= $ga['krPNS'] + $ga['krPPPK'] + $ga['krNonPNS'] - $skl['guru_kristen']; ?></td>
                                                         <td><?= $skl['guru_katholik']; ?></td>
-                                                        <td> </td>
-                                                        <td> </td>
-                                                        <td> </td>
-                                                        <td> </td>
+                                                        <td><?= $ga['kaPNS']; ?></td>
+                                                        <td><?= $ga['kaPPPK']; ?></td>
+                                                        <td><?= $ga['kaNonPNS']; ?></td>
+                                                        <td><?= $ga['kaPNS'] + $ga['kaPPPK'] + $ga['kaNonPNS'] - $skl['guru_katholik']; ?></td>
                                                         <td><?= $skl['guru_hindu']; ?></td>
-                                                        <td> </td>
-                                                        <td> </td>
-                                                        <td> </td>
-                                                        <td> </td>
+                                                        <td><?= $ga['hiPNS']; ?></td>
+                                                        <td><?= $ga['hiPPPK']; ?></td>
+                                                        <td><?= $ga['hiNonPNS']; ?></td>
+                                                        <td><?= $ga['hiPNS'] + $ga['hiPPPK'] + $ga['hiNonPNS'] - $skl['guru_hindu']; ?></td>
                                                         <td><?= $skl['guru_budha']; ?></td>
-                                                        <td> </td>
-                                                        <td> </td>
-                                                        <td> </td>
-                                                        <td> </td>
+                                                        <td><?= $ga['buPNS']; ?></td>
+                                                        <td><?= $ga['buPPPK']; ?></td>
+                                                        <td><?= $ga['buNonPNS']; ?></td>
+                                                        <td><?= $ga['buPNS'] + $ga['buPPPK'] + $ga['buNonPNS'] - $skl['guru_budha']; ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
                                         </table>
                                     </div>
+
                                     <!-- Tabel Guru PJOK -->
                                     <div class="tab-pane fade" id="custom-tabs-four-guruPJOK" role="tabpanel" aria-labelledby="custom-tabs-four-guruPJOK-tab">
-                                        <table class="table table-bordered">
+                                        <table class="table table-bordered text-center" id="tabel_sekolah4">
                                             <?php $i = 1; ?>
                                             <thead style="text-align:center;">
                                                 <tr>
@@ -376,23 +303,25 @@
                                             </thead>
                                             <tbody>
                                                 <?php foreach ($sekolah as $skl) : ?>
+                                                    <?php $gpjok =  $this->m_pegawai->hitungGuruPJOK($skl['npsn']);  ?>
                                                     <tr>
                                                         <td><?= $i++ ?></td>
                                                         <td><?= $skl['nama_sekolah']; ?></td>
                                                         <td><?= $skl['guru_pjok']; ?></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
+                                                        <td><?= $gpjok['gPNS']; ?></td>
+                                                        <td><?= $gpjok['gPPPK']; ?></td>
+                                                        <td><?= $gpjok['gNonPNS']; ?></td>
+                                                        <td><?= $gpjok['gPNS'] + $gpjok['gPPPK'] + $gpjok['gNonPNS'] - $skl['guru_pjok']; ?></td>
 
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
                                         </table>
                                     </div>
+
                                     <!-- Tabel Guru Inklusi -->
                                     <div class="tab-pane fade" id="custom-tabs-four-guruInklusi" role="tabpanel" aria-labelledby="custom-tabs-four-guruInklusi-tab">
-                                        <table class="table table-bordered" style="text-align:center;">
+                                        <table class="table table-bordered text-center" style="text-align:center;" id="tabel_sekolah5">
                                             <?php $i = 1; ?>
                                             <thead>
                                                 <tr>
@@ -408,20 +337,22 @@
                                             </thead>
                                             <tbody>
                                                 <?php foreach ($sekolah as $skl) : ?>
+                                                    <?php $gpInk =  $this->m_pegawai->hitungGuruInklusi($skl['npsn']);  ?>
                                                     <tr>
                                                         <td><?= $i++ ?></td>
                                                         <td><?= $skl['nama_sekolah']; ?></td>
                                                         <td><?= $skl['guru_inklusi']; ?></td>
-                                                        <td></td>
-                                                        <td></td>
+                                                        <td><?= $gpInk; ?></td>
+                                                        <td><?= $gpInk - $skl['guru_inklusi']; ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
                                         </table>
                                     </div>
+
                                     <!-- Tabel Tendik -->
                                     <div class="tab-pane fade" id="custom-tabs-four-tendik" role="tabpanel" aria-labelledby="custom-tabs-four-tendik-tab">
-                                        <table class="table table-bordered">
+                                        <table class="table table-bordered text-center" id="tabel_sekolah6">
                                             <?php $i = 1; ?>
                                             <thead style="text-align: center;">
                                                 <tr>
@@ -443,17 +374,18 @@
                                             </thead>
                                             <tbody>
                                                 <?php foreach ($sekolah as $skl) : ?>
+                                                    <?php $gptk =  $this->m_pegawai->hitungTenagaPendidik($skl['npsn']);  ?>
                                                     <tr>
                                                         <td><?= $i++ ?></td>
                                                         <td><?= $skl['nama_sekolah']; ?></td>
                                                         <td><?= $skl['pramu_bakti']; ?></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
+                                                        <td><?= $gptk['pbPNS']; ?></td>
+                                                        <td><?= $gptk['pbNonPNS']; ?></td>
+                                                        <td><?= $gptk['pbPNS'] + $gptk['pbNonPNS'] - $skl['pramu_bakti']; ?> </td>
                                                         <td><?= $skl['penjaga_kebersihan']; ?></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
+                                                        <td><?= $gptk['pkPNS']; ?></td>
+                                                        <td><?= $gptk['pkNonPNS']; ?></td>
+                                                        <td><?= $gptk['pkPNS'] + $gptk['pkNonPNS'] - $skl['penjaga_kebersihan']; ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             </tbody>
@@ -463,10 +395,12 @@
                                 </div>
 
                             </div>
+
                         </div>
                     </div>
                     <!-- /.card -->
                 </div>
+
                 <!-- /.card -->
             </div>
             <!-- /.col -->
@@ -474,110 +408,40 @@
         <!-- /.row -->
     </div>
     <!-- /.container-fluid -->
-    <div class="modal fade" id="ModalSekolah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Rekapitulasi Sekolah</h5>
-                </div>
-                <div class="modal-body">
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                            <th></th>
-                            <th>PNS</th>
-                            <th>PPPK</th>
-                            <th>NON PNS</th>
-                            <th>Total</th>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Kepala Sekolah</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>Guru Kelas</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    8
-                                    <span class="badge rounded-pill bg-danger">-1</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Pendidikan Agama Islam</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>Pendidikan Agama Katholik</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>Pendidikan Agama Kristen</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>Pendidikan Agama Hindu</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>Pendidikan Agama Budha</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>Pendidikan Jasmani, Olahraga dan Kerohanian</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>Inklusi</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th rowspan="1" colspan="1">Grand Total</th>
-                                <th rowspan="1" colspan="1"> </th>
-                                <th rowspan="1" colspan="1"> </th>
-                                <th rowspan="1" colspan="1"> </th>
-                                <th rowspan="1" colspan="2"> </th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                    Kekurangan Guru Kelas: </br>
-                    Kekurangan Guru PA: </br>
-                    Kekurangan Guru PJOK: </br>
-                    Kekurangan Guru Inklusi: </br>
-                </div>
-                <div class="modal-footer">
-                    <button href="<?= base_url('/petugas/lihatlaporan2'); ?>" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+
     <!-- content -->
 </div>
+<div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="importModalLabel">Import CSV</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="<?= site_url('petugas/sekolah/import'); ?>" method="post" enctype="multipart/form-data">
+                <?= csrf_field() ?>
+                <div class="modal-body">
+                    <div class="col">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="csvSekolah" name="csvSekolah" required>
+                            <input type="hidden" class="custom-file-input" id="jenjang" name="jenjang" value="SD">
+                            <label for="csvSekolah" class="custom-file-label">Pilih Berkas</label>
+                        </div>
+                    </div>
+                    <div class="col" style="margin-top: 10px;">
+                        <a href="/template_sekolah_sd.xlsx">Unduh Template (Data SD.xlsx)</a>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Unggah</button>
+                </div>
+
+        </div>
+        </form>
+
+    </div>
+</div>
+
 <?= $this->endSection() ?>

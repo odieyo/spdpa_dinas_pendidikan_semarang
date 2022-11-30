@@ -2,6 +2,10 @@
 
 <?= $this->section('content') ?>
 
+<?php $session = session(); ?>
+<?php $role = $session->role; ?>
+<?php helper('form'); ?>
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -24,10 +28,10 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col">
-                <div class="card card-default">
+            <div class="col-md-4">
+                <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Menu Laporan</h3>
+                        <h3 class="card-title">Periode Laporan</h3>
 
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -40,80 +44,79 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Bulan Periode</label>
-                                    <select class="form-control select2" style="width: 100%;">
-                                        <option selected="selected"></option>
-                                        <option>Januari</option>
-                                        <option>Februari</option>
-                                        <option>Maret</option>
-                                        <option>April</option>
-                                        <option>Mei</option>
-                                        <option>Juni</option>
-                                        <option>Juli</option>
-                                        <option>Agustus</option>
-                                        <option>September</option>
-                                        <option>Oktober</option>
-                                        <option>November</option>
-                                        <option>Desember</option>
-                                    </select>
+                        <form action="/petugas/laporan/lihat" method="get">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="tanggal_awal">Tanggal Awal</label>
+                                        <input type="date" id="tanggal_awal" name="tanggal_awal" class="form-control" required></input>
+
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <label for="tanggal_akhir">Tanggal Akhir</label>
+                                        <input type="date" id="tanggal_akhir" name="tanggal_akhir" class="form-control" required></input>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col">
+                                        <label class="kategori">Kategori </label>
+                                        <?php if ($role == 'Semua') : ?>
+                                            <div class="form-check">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="kategori" value="TK">
+                                                    <label class="form-check-label" for="TK">
+                                                        TK
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="kategori" value="SD">
+                                                    <label class="form-check-label" for="SD">
+                                                        SD
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="kategori" value="SMP">
+                                                    <label class="form-check-label" for="SMP">
+                                                        SMP
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        <?php else : ?>
+                                            <div class="form-check">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="kategori" value="TK" <?= ($role == 'TK') ? set_radio('kategori', 'TK', true) : 'disabled'; ?>>
+                                                    <label class="form-check-label" for="TK">
+                                                        TK
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="kategori" value="SD" <?= ($role == 'SD') ? set_radio('kategori', 'SD', true) : 'disabled'; ?>>
+                                                    <label class="form-check-label" for="SD">
+                                                        SD
+                                                    </label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="kategori" value="SMP" <?= ($role == 'SMP') ? set_radio('kategori', 'SMP', true) : 'disabled'; ?>>
+                                                    <label class="form-check-label" for="SMP">
+                                                        SMP
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
                                 </div>
                             </div>
                             <!-- /.form-group -->
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>Tahun Periode</label>
-                                    <Select class="form-control select2" style="width: 100%">
-                                        <option selected="selected"></option>
-                                        <option>2021</option>
-                                        <option>2022</option>
-                                        <option>2023</option>
-                                        <option>2024</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group">
-
-                                <label class="kategori">Kategori </label>
-
-                                <div class="form-check">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="kategori" id="paud" value="PAUD">
-                                        <label class="form-check-label" for="paud">
-                                            PAUD
-                                        </label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="kategori" id="sd" value="SD">
-                                        <label class="form-check-label" for="SD">
-                                            SD
-                                        </label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="kategori" id="smp" value="SMP">
-                                        <label class="form-check-label" for="SMP">
-                                            SMP
-                                        </label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="kategori" id="sma" value="SMA">
-                                        <label class="form-check-label" for="SMA">
-                                            SMA
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /.form-group -->
                     </div>
                     <div class="card-footer">
-                        <a class="btn btn-default" href="<?= base_url('/petugas/lihatlaporan'); ?>#">
+                        <button type="submit" class="btn btn-default float-right">
                             <b> Lihat Laporan</b>
-                        </a>
+                        </button>
                     </div>
+                    </form>
                 </div>
                 <!-- /.row -->
             </div>
@@ -124,26 +127,4 @@
 </div>
 <!-- /.col -->
 
-</div>
-<!-- /.row -->
-
-< <!-- /.card-body -->
-
-    <!-- /.row -->
-
-    </div>
-    </div>
-    </div>
-    <!-- /.card-body -->
-
-    </div>
-    </div>
-    <!-- /.col -->
-    </div>
-    <!-- /.row -->
-    </div>
-    <!-- /.container-fluid -->
-
-    <!-- content -->
-    </div>
-    <?= $this->endSection() ?>
+<?= $this->endSection() ?>

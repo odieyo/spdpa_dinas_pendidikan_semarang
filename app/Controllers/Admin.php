@@ -11,13 +11,18 @@ class Admin extends BaseController
     public function __construct()
     {
         $this->m_user = new M_User();
+        $this->session = session();
     }
 
     public function index()
     {
+        if ($this->session->role != 'Admin') {
+            return redirect()->to(site_url('petugas'));
+        }
+        $jml_usr = $this->m_user->hitungUser();
         $data = [
             'title' => 'Dashboard Admin',
-            'nama_user' => 'Admin',
+            'jml_usr' => $jml_usr
         ];
 
         return view("admin/dashboard_admin", $data);
@@ -80,16 +85,15 @@ class Admin extends BaseController
 
     public function updateaksesUser($id_user)
     {
+
         $slug = url_title($this->request->getVar('nama_user'), '-', true);
-        $data = [
-            'id_user' => $id_user,
+        $this->m_user->update($id_user, [
             'nama_user' => $this->request->getVar('nama_user'),
             'slug' => $slug,
             'username' => $this->request->getVar('username'),
             'password' => $this->request->getVar('password'),
             'akses' => $this->request->getVar('akses')
-        ];
-        $this->m_user->save($data);
+        ]);
         session()->setFlashdata('notifikasi', 'Akses pengguna berhasil diubah');
         return redirect()->to('/admin/user');
     }

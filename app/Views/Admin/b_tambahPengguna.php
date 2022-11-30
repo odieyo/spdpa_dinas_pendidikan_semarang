@@ -43,11 +43,11 @@
                                         </div>
                                         <div class="col">
                                             <label for="password">Password</label>
-                                            <input type="text" id="password" class="form-control" name="password" placeholder="1234" disabled>
+                                            <input type="text" id="password" class="form-control" name="password" value="123" placeholder="123" readonly>
                                         </div>
                                         <div class="col">
                                             <label for="akses">Hak Akses</label>
-                                            <select name="akses" id="akses" class="form-control select">
+                                            <select name="akses" id="akses" class="form-control select" required>
                                                 <option value=""></option>
                                                 <option value="Semua">Semua</option>
                                                 <option value="TK">TK</option>
@@ -61,7 +61,7 @@
                         </div>
 
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <button type="submit" class="btn btn-primary float-right">Simpan</button>
                         </div>
                         </form>
                     </div>

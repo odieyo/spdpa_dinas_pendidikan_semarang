@@ -8,7 +8,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6" style=" margin-top: 10px">
-                        <h1 class="m-0">Selamat Datang, <? $nama_user; ?> </h1>
+                        <h1 class="m-0">Selamat Datang, <?= $nama_user; ?> </h1>
                         <h4 class="">di Sistem Pengelolaan Data Pegawai ASN </h4>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
@@ -41,47 +41,36 @@
                             <div class="content-body">
                                 <div class="row">
                                     <div class="col-lg-3 col-6">
-                                        <!-- small box -->
-                                        <div class="small-box bg-success">
-                                            <div class="inner">
-                                                <h3>xxx</h3>
 
-                                                <p>Pegawai Saat ini</p>
+                                        <div class="info-box">
+                                            <span class="info-box-icon bg-success"><i class="fas fa-users"></i></span>
+                                            <div class="info-box-content">
+                                                <span class="info-box-text">Jumlah Pegawai Aktif</span>
+                                                <span class="info-box-number"><?= $jml_pgw; ?></span>
                                             </div>
-                                            <div class="icon">
-                                                <i class="fa fa-solid fa-users"></i>
-                                            </div>
-                                            <a href="#" class="small-box-footer">Info Lebih Lanjut <i class="fas fa-arrow-circle-right"></i></a>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-6">
-                                        <div class="small-box bg-warning">
-                                            <div class="inner">
-                                                <h3>xxx</h3>
 
-                                                <p>Kebutuhan Pegawai</p>
+                                        <div class="info-box">
+                                            <span class="info-box-icon bg-danger"><i class="fas fa-user-minus"></i></span>
+                                            <div class="info-box-content">
+                                                <span class="info-box-text">Jumlah Pegawai Non-Aktif</span>
+                                                <span class="info-box-number"><?= $non_pgw; ?></span>
                                             </div>
-                                            <div class="icon">
-                                                <i class="fa fa-solid fa-user-plus"></i>
-                                            </div>
-                                            <a href="#" class="small-box-footer">Info Lebih Lanjut <i class="fas fa-arrow-circle-right"></i></a>
                                         </div>
                                     </div>
-                                    <!-- ./col -->
                                     <div class="col-lg-3 col-6">
-                                        <!-- small box -->
-                                        <div class="small-box bg-danger">
-                                            <div class="inner">
-                                                <h3>xxx</h3>
 
-                                                <p>Pegawai Non-Aktif</p>
+                                        <div class="info-box">
+                                            <span class="info-box-icon bg-primary"><i class="fas fa-school"></i></span>
+                                            <div class="info-box-content">
+                                                <span class="info-box-text">Jumlah Sekolah</span>
+                                                <span class="info-box-number"><?= $jml_skl; ?></span>
                                             </div>
-                                            <div class="icon">
-                                                <i class="fa fa-solid fa-user-minus"></i>
-                                            </div>
-                                            <a href="<?= base_url('admin/user'); ?>" class="small-box-footer">Info Lebih Lanjut <i class="fas fa-arrow-circle-right"></i></a>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                             <!-- ./col -->
