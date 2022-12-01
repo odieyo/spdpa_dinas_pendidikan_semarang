@@ -62,7 +62,7 @@
                                 <a href="<?= base_url(uri_string()); ?>/tambah" type="insert" class="btn btn-success">
                                     <i class="fas fa-plus"></i> Tambah Pegawai
                                 </a>
-                                <button type="button" class="btn btn-info ml-1" data-toggle="modal" data-target="#importModal"><i class="fas fa-file-csv"></i> Import CSV</button>
+                                <button type="button" class="btn btn-info ml-1" data-toggle="modal" data-target="#importModal"><i class="fas fa-file-csv"></i> Import</button>
                             </div>
                             <div class="col-sm-2">
 
@@ -139,7 +139,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="importModalLabel">Import CSV</h5>
+                <h5 class="modal-title" id="importModalLabel">Import</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

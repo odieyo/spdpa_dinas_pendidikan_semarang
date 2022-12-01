@@ -27,7 +27,7 @@
                             </div>
                         </div>
                     <?php endif; ?>
-                    <form method="POST" action="<?= site_url('/auth/loginProcess'); ?>" class="needs-validation" novalidate="">
+                    <form method="POST" action="<?= site_url('/auth/loginProcess'); ?>" class="needs-validation">
                         <?= csrf_field(); ?>
 
                         <div class="form-group form-outline mb-4">

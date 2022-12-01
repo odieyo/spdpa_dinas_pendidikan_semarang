@@ -60,7 +60,7 @@ $this->m_pegawai = new M_Pegawai(); ?>
                         <div class="row ml-auto mb-3">
                             <div class="col">
                                 <a href="<?= base_url('/petugas/smp/tambah'); ?>" type="button" class="btn btn-success"><i class="fas fa-plus"></i> Tambah Sekolah</a>
-                                <button type="button" class="btn btn-info ml-1" data-toggle="modal" data-target="#importModal"><i class="fas fa-file-csv"></i> Import CSV</button>
+                                <button type="button" class="btn btn-info ml-1" data-toggle="modal" data-target="#importModal"><i class="fas fa-file-csv"></i> Import</button>
                             </div>
                         </div>
 
@@ -121,7 +121,7 @@ $this->m_pegawai = new M_Pegawai(); ?>
                                                         <td><?= $skl['kecamatan']; ?></td>
                                                         <td><?= $skl['rombel']; ?></td>
                                                         <td>
-                                                            <a href="/petugas/tk/<?= $skl['slug']; ?>" type="button" class="btn btn-info btn-sm">
+                                                            <a href="/petugas/smp/<?= $skl['slug']; ?>" type="button" class="btn btn-info btn-sm">
                                                                 <i class="fas fa-edit"></i>
                                                             </a>
                                                             <form action="/petugas/sekolah/<?= $skl['npsn']; ?>" method="post" class="d-inline">

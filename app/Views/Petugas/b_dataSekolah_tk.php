@@ -63,7 +63,7 @@ $this->m_pegawai = new M_Pegawai(); ?>
                         <div class="row ml-auto mb-3">
                             <div class="col">
                                 <a href="<?= base_url('/petugas/tk/tambah'); ?>" type="button" class="btn btn-success"><i class="fas fa-plus"></i> Tambah Sekolah</a>
-                                <button type="button" class="btn btn-info ml-1" data-toggle="modal" data-target="#importModal"><i class="fas fa-file-csv"></i> Import CSV</button>
+                                <button type="button" class="btn btn-info ml-1" data-toggle="modal" data-target="#importModal"><i class="fas fa-file-csv"></i> Import</button>
                             </div>
 
                         </div>
