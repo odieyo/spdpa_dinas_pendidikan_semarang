@@ -7,7 +7,7 @@
         <div class="container-fluid ml-2">
             <div class="row mt-2">
                 <div class="col-sm-6">
-                    <h3 class="page-header">Tambah Data Pengguna </h3>
+                    <h3 class="page-header">Ubah Data Pengguna </h3>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">

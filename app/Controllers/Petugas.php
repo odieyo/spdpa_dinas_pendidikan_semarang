@@ -820,6 +820,7 @@ class Petugas extends BaseController
                 if ($key === 0) {
                     continue;
                 }
+
                 // $cek = $this->m_sekolah->isExist($value[0]);
                 // if ($cek = true) {
                 //     return redirect()->back()->with('error', 'Sekolah sudah terdaftar');
@@ -861,7 +862,7 @@ class Petugas extends BaseController
                         'npsn' => $value[0],
                         'nama_sekolah' => $value[1],
                         'slug' => $slug,
-                        'kecamatan' => $value[3],
+                        'kecamatan' => $value[2],
                         'jenjang' => "TK",
                         'rombel' => $value[4],
                         'kepala_sekolah' => $value[5],
@@ -876,7 +877,7 @@ class Petugas extends BaseController
                         'npsn' => $value[0],
                         'nama_sekolah' => $value[1],
                         'slug' => $slug,
-                        'kecamatan' => $value[3],
+                        'kecamatan' => $value[2],
                         'jenjang' => "SD",
                         'rombel' => $value[4],
                         'kepala_sekolah' => $value[5],
@@ -897,7 +898,7 @@ class Petugas extends BaseController
                         'npsn' => $value[0],
                         'nama_sekolah' => $value[1],
                         'slug' => $slug,
-                        'kecamatan' => $value[3],
+                        'kecamatan' => $value[2],
                         'jenjang' => "SMP",
                         'rombel' => $value[4],
                         'kepala_sekolah' => $value[5],

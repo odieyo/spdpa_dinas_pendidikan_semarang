@@ -103,7 +103,7 @@
                                                 <a href="/petugas/pegawai/<?= $pgw['slug']; ?>" type="button" class="btn btn-info btn-sm">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-                                                <!-- <form action="/petugas/pegawai/</ ?= $pgw['nik']; ?>" method="post" class="d-inline">
+                                                <!-- <form action="/petugas/pegawai/</?= $pgw['nik']; ?>" method="post" class="d-inline">
                                                     </?= csrf_field(); ?>
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin?');">

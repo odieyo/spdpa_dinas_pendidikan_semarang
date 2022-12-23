@@ -48,24 +48,24 @@
                         </div>
                         <?php if ($jenjang === "TK") : ?>
                             <div class="col">
-                                <table id="tabel_laporan" class="table table-bordered" width="100" style="text-align:center; position:static;">
-                                    <thead style="vertical-align: middle;">
-                                        <tr>
-                                            <th rowspan="2" width="20">No</th>
-                                            <th rowspan="2" width="200">Jabatan</th>
-                                            <th colspan="4" width="50">Status Kepegawaian</th>
-                                            <th rowspan="2" width="100">Pegawai Saat Ini</th>
-                                            <th rowspan="2" width="100">Total</th>
-                                            <th rowspan="2" width="100">Kebutuhan</th>
-                                            <th rowspan="2" width="100">Rekomendasi</th>
-                                            <!-- <th rowspan="2" width="100">Aksi</th> -->
-                                        </tr>
-                                        <tr>
-                                            <th width="50 px">PNS</th>
-                                            <th width="50 px">PPPK</th>
-                                            <th width="50 px">Non PNS</th>
-                                            <th width="50 px">Jumlah</th>
-                                        </tr>
+                                <table id="tabel_laporan" class="table table-bordered" width="100" style="text-align:center; position:static;overflow-x:auto;"">
+                                    <thead style=" vertical-align: middle;">
+                                    <tr>
+                                        <th rowspan="2" width="20">No</th>
+                                        <th rowspan="2" width="200">Jabatan</th>
+                                        <th colspan="4" width="50">Status Kepegawaian</th>
+                                        <th rowspan="2" width="100">Pegawai Saat Ini</th>
+                                        <th rowspan="2" width="100">Total</th>
+                                        <th rowspan="2" width="100">Kebutuhan</th>
+                                        <th rowspan="2" width="100">Rekomendasi</th>
+                                        <!-- <th rowspan="2" width="100">Aksi</th> -->
+                                    </tr>
+                                    <tr>
+                                        <th width="50 px">PNS</th>
+                                        <th width="50 px">PPPK</th>
+                                        <th width="50 px">Non PNS</th>
+                                        <th width="50 px">Jumlah</th>
+                                    </tr>
                                     </thead>
                                     <?php $i = 1; ?>
                                     <tbody>
@@ -91,8 +91,9 @@
                                             <td><?= $tks = $hks + $sks ?></td>
                                             <td><?= $ks = $sekolah['ks']->kepala_sekolah; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($tks - $ks) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($tks - $ks) < 0) ? 'Menambah ' . (- ($tks - $ks)) . ' pegawai' : 'Mendistribusikan kembali ' . ($tks - $ks) . ' pegawai '; ?>
+                                                <!-- <span class="badge rounded-pill </?= (($tks - $ks) < 0) ? 'badge-danger' : 'badge-alert'; ?>"> -->
+                                                <span class="badge rounded-pill <?= (($tks - $ks) < 0) ? 'badge-danger' : ($tks - $ks > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($tks - $ks) < 0) ? 'Menambah ' . (- ($tks - $ks)) . ' pegawai' : ($tks - $ks > 0 ? 'Mendistribusikan kembali ' . ($tks - $ks) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td>
@@ -115,8 +116,8 @@
                                             <td><?= $tgk = $hgk + $sgk ?></td>
                                             <td><?= $gk = $sekolah['gk']->guru_kelas; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($tgk - $gk) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($tgk - $gk) < 0) ? 'Menambah ' . (- ($tgk - $gk)) . ' pegawai' : 'Mendistribusikan kembali ' . ($tgk - $gk) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($tgk - $gk) < 0) ? 'badge-danger' : ($tgk - $gk > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($tgk - $gk) < 0) ? 'Menambah ' . (- ($tgk - $gk)) . ' pegawai' : ($tgk - $gk > 0 ? 'Mendistribusikan kembali ' . ($tgk - $gk) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td>
@@ -140,8 +141,8 @@
                                             <td><?= $tpjok = $hpjok + $spjok ?></td>
                                             <td><?= $pjok = $sekolah['pjok']->guru_pjok; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($tpjok - $pjok) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($tpjok - $pjok) < 0) ? 'Menambah ' . (- ($tpjok - $pjok)) . ' pegawai' : 'Mendistribusikan kembali ' . ($tpjok - $pjok) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($tpjok - $pjok) < 0) ? 'badge-danger' : ($tpjok - $pjok > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($tpjok - $pjok) < 0) ? 'Menambah ' . (- ($tpjok - $pjok)) . ' pegawai' : ($tpjok - $pjok > 0 ? 'Mendistribusikan kembali ' . ($tpjok - $pjok) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td>
@@ -164,8 +165,8 @@
                                             <td><?= $tin = $hin + $sin ?></td>
                                             <td><?= $in = $sekolah['in']->guru_inklusi; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($tin - $in) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($tin - $in) < 0) ? 'Menambah ' . (- ($tin - $in)) . ' pegawai' : 'Mendistribusikan kembali ' . ($tin - $in) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($tin - $in) < 0) ? 'badge-danger' : ($tin - $in > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($tin - $in) < 0) ? 'Menambah ' . (- ($tin - $in)) . ' pegawai' : ($tin - $in > 0 ? 'Mendistribusikan kembali ' . ($tin - $in) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td> -->
@@ -189,8 +190,8 @@
                                             <td><?= $tpb = $hpb + $spb ?></td>
                                             <td><?= $pb = $sekolah['pb']->pramu_bakti; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($tpb - $pb) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($tpb - $pb) < 0) ? 'Menambah ' . (- ($tpb - $pb)) . ' pegawai' : 'Mendistribusikan kembali ' . ($tpb - $pb) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($tpb - $pb) < 0) ? 'badge-danger' : ($tpb - $pb > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($tpb - $pb) < 0) ? 'Menambah ' . (- ($tpb - $pb)) . ' pegawai' : ($tpb - $pb > 0 ? 'Mendistribusikan kembali ' . ($tpb - $pb) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td>
@@ -213,8 +214,8 @@
                                             <td><?= $tpk = $hpk + $spk ?></td>
                                             <td><?= $pk = $sekolah['pk']->penjaga_kebersihan; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($tpk - $pk) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($tpk - $pk) < 0) ? 'Menambah ' . (- ($tpk - $pk)) . ' pegawai' : 'Mendistribusikan kembali ' . ($tpk - $pk) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($tpk - $pk) < 0) ? 'badge-danger' : ($tpk - $pk > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($tpk - $pk) < 0) ? 'Menambah ' . (- ($tpk - $pk)) . ' pegawai' : ($tpk - $pk > 0 ? 'Mendistribusikan kembali ' . ($tpk - $pk) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td>
@@ -259,8 +260,8 @@
 
                         <?php if ($jenjang === "SD") : ?>
                             <div class="col">
-                                <table id="tabel_laporan" class="table table-bordered" width="100" style="text-align:center; position:static;">
-                                    <thead style="vertical-align: middle;">
+                                <table id="tabel_laporan" class="table table-bordered" width="100" style="text-align:center; position:static;overflow-x:auto;">
+                                    <thead style=" vertical-align: middle;">
                                         <tr>
                                             <th rowspan="2" width="20">No</th>
                                             <th rowspan="2" width="200">Jabatan</th>
@@ -302,8 +303,8 @@
                                             <td><?= $tks = $hks + $sks ?></td>
                                             <td><?= $ks = $sekolah['ks']->kepala_sekolah; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($tks - $ks) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($tks - $ks) < 0) ? 'Menambah ' . (- ($tks - $ks)) . ' pegawai' : 'Mendistribusikan kembali ' . ($tks - $ks) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($tks - $ks) < 0) ? 'badge-danger' : ($tks - $ks > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($tks - $ks) < 0) ? 'Menambah ' . (- ($tks - $ks)) . ' pegawai' : ($tks - $ks > 0 ? 'Mendistribusikan kembali ' . ($tks - $ks) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td>
@@ -326,8 +327,8 @@
                                             <td><?= $tgk = $hgk + $sgk ?></td>
                                             <td><?= $gk = $sekolah['gk']->guru_kelas; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($tgk - $gk) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($tgk - $gk) < 0) ? 'Menambah ' . (- ($tgk - $gk)) . ' pegawai' : 'Mendistribusikan kembali ' . ($tgk - $gk) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($tgk - $gk) < 0) ? 'badge-danger' : ($tgk - $gk > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($tgk - $gk) < 0) ? 'Menambah ' . (- ($tgk - $gk)) . ' pegawai' : ($tgk - $gk > 0 ? 'Mendistribusikan kembali ' . ($tgk - $gk) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td>
@@ -350,8 +351,8 @@
                                             <td><?= $tis = $his + $sis ?></td>
                                             <td><?= $is = $sekolah['is']->guru_pai; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($tis - $is) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($tis - $is) < 0) ? 'Menambah ' . (- ($tis - $is)) . ' pegawai' : 'Mendistribusikan kembali ' . ($tis - $is) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($tis - $is) < 0) ? 'badge-danger' : ($tis - $is > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($tis - $is) < 0) ? 'Menambah ' . (- ($tis - $is)) . ' pegawai' : ($tis - $is > 0 ? 'Mendistribusikan kembali ' . ($tis - $is) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td>
@@ -374,8 +375,8 @@
                                             <td><?= $tka = $hka + $ska ?></td>
                                             <td><?= $ka = $sekolah['ka']->guru_katholik; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($tka - $ka) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($tka - $ka) < 0) ? 'Menambah ' . (- ($tka - $ka)) . ' pegawai' : 'Mendistribusikan kembali ' . ($tka - $ka) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($tka - $ka) < 0) ? 'badge-danger' : ($tka - $ka > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($tka - $ka) < 0) ? 'Menambah ' . (- ($tka - $ka)) . ' pegawai' : ($tka - $ka > 0 ? 'Mendistribusikan kembali ' . ($tka - $ka) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td>
@@ -398,8 +399,8 @@
                                             <td><?= $tkr = $hkr + $skr ?></td>
                                             <td><?= $kr = $sekolah['kr']->guru_kristen; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($tkr - $kr) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($tkr - $kr) < 0) ? 'Menambah ' . (- ($tkr - $kr)) . ' pegawai' : 'Mendistribusikan kembali ' . ($tkr - $kr) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($tkr - $kr) < 0) ? 'badge-danger' : ($tkr - $kr > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($tkr - $kr) < 0) ? 'Menambah ' . (- ($tkr - $kr)) . ' pegawai' : ($tkr - $kr > 0 ? 'Mendistribusikan kembali ' . ($tkr - $kr) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td>
@@ -422,8 +423,8 @@
                                             <td><?= $tbu = $hbu + $sbu ?></td>
                                             <td><?= $bu = $sekolah['bu']->guru_budha; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($tbu - $bu) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($tbu - $bu) < 0) ? 'Menambah ' . (- ($tbu - $bu)) . ' pegawai' : 'Mendistribusikan kembali ' . ($tbu - $bu) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($tbu - $bu) < 0) ? 'badge-danger' : ($tbu - $bu > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($tbu - $bu) < 0) ? 'Menambah ' . (- ($tbu - $bu)) . ' pegawai' : ($tbu - $bu > 0 ? 'Mendistribusikan kembali ' . ($tbu - $bu) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td>
@@ -446,8 +447,8 @@
                                             <td><?= $thi = $hhi + $shi ?></td>
                                             <td><?= $hi = $sekolah['hi']->guru_hindu; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($thi - $hi) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($thi - $hi) < 0) ? 'Menambah ' . (- ($thi - $hi)) . ' pegawai' : 'Mendistribusikan kembali ' . ($thi - $hi) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($thi - $hi) < 0) ? 'badge-danger' : ($thi - $hi > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($thi - $hi) < 0) ? 'Menambah ' . (- ($thi - $hi)) . ' pegawai' : ($thi - $hi > 0 ? 'Mendistribusikan kembali ' . ($thi - $hi) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td>
@@ -470,8 +471,8 @@
                                             <td><?= $tpjok = $hpjok + $spjok ?></td>
                                             <td><?= $pjok = $sekolah['pjok']->guru_pjok; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($tpjok - $pjok) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($tpjok - $pjok) < 0) ? 'Menambah ' . (- ($tpjok - $pjok)) . ' pegawai' : 'Mendistribusikan kembali ' . ($tpjok - $pjok) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($tpjok - $pjok) < 0) ? 'badge-danger' : ($tpjok - $pjok > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($tpjok - $pjok) < 0) ? 'Menambah ' . (- ($tpjok - $pjok)) . ' pegawai' : ($tpjok - $pjok > 0 ? 'Mendistribusikan kembali ' . ($tpjok - $pjok) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td>
@@ -494,8 +495,8 @@
                                             <td><?= $tin = $hin + $sin ?></td>
                                             <td><?= $in = $sekolah['in']->guru_inklusi; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($tin - $in) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($tin - $in) < 0) ? 'Menambah ' . (- ($tin - $in)) . ' pegawai' : 'Mendistribusikan kembali ' . ($tin - $in) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($tin - $in) < 0) ? 'badge-danger' : ($tin - $in > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($tin - $in) < 0) ? 'Menambah ' . (- ($tin - $in)) . ' pegawai' : ($tin - $in > 0 ? 'Mendistribusikan kembali ' . ($tin - $in) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td> -->
@@ -519,8 +520,8 @@
                                             <td><?= $tpb = $hpb + $spb ?></td>
                                             <td><?= $pb = $sekolah['pb']->pramu_bakti; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($tpb - $pb) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($tpb - $pb) < 0) ? 'Menambah ' . (- ($tpb - $pb)) . ' pegawai' : 'Mendistribusikan kembali ' . ($tpb - $pb) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($tpb - $pb) < 0) ? 'badge-danger' : ($tpb - $pb > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($tpb - $pb) < 0) ? 'Menambah ' . (- ($tpb - $pb)) . ' pegawai' : ($tpb - $pb > 0 ? 'Mendistribusikan kembali ' . ($tpb - $pb) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td>
@@ -543,8 +544,8 @@
                                             <td><?= $tpk = $hpk + $spk ?></td>
                                             <td><?= $pk = $sekolah['pk']->penjaga_kebersihan; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($tpk - $pk) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($tpk - $pk) < 0) ? 'Menambah ' . (- ($tpk - $pk)) . ' pegawai' : 'Mendistribusikan kembali ' . ($tpk - $pk) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($tpk - $pk) < 0) ? 'badge-danger' : ($tpk - $pk > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($tpk - $pk) < 0) ? 'Menambah ' . (- ($tpk - $pk)) . ' pegawai' : ($tpk - $pk > 0 ? 'Mendistribusikan kembali ' . ($tpk - $pk) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td>
@@ -589,7 +590,7 @@
 
                         <?php if ($jenjang === "SMP") : ?>
                             <div class="col">
-                                <table id="tabel_laporan" class="table table-bordered" width="100" style="text-align:center; position:static;">
+                                <table id="tabel_laporan" class="table table-bordered" width="100" style="text-align:center; position:static; overflow-x:auto;">
                                     <thead style="vertical-align: middle;">
                                         <tr>
                                             <th rowspan="2" width="20">No</th>
@@ -632,8 +633,8 @@
                                             <td><?= $tks = $hks + $sks ?></td>
                                             <td><?= $ks = $sekolah['ks']->kepala_sekolah; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($tks - $ks) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($tks - $ks) < 0) ? 'Menambah ' . (- ($tks - $ks)) . ' pegawai' : 'Mendistribusikan kembali ' . ($tks - $ks) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($tks - $ks) < 0) ? 'badge-danger' : ($tks - $ks > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($tks - $ks) < 0) ? 'Menambah ' . (- ($tks - $ks)) . ' pegawai' : ($tks - $ks > 0 ? 'Mendistribusikan kembali ' . ($tks - $ks) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td>
@@ -656,8 +657,8 @@
                                             <td><?= $tipa = $hipa + $sipa ?></td>
                                             <td><?= $ipa = $sekolah['ipa']->guru_ipa; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($tipa - $ipa) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($tipa - $ipa) < 0) ? 'Menambah ' . (- ($tipa - $ipa)) . ' pegawai' : 'Mendistribusikan kembali ' . ($tipa - $ipa) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($tipa - $ipa) < 0) ? 'badge-danger' : ($tipa - $ipa > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($tipa - $ipa) < 0) ? 'Menambah ' . (- ($tipa - $ipa)) . ' pegawai' : ($tipa - $ipa > 0 ? 'Mendistribusikan kembali ' . ($tipa - $ipa) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td>
@@ -679,8 +680,8 @@
                                             <td><?= $tips = $hips + $sips ?></td>
                                             <td><?= $ips = $sekolah['ips']->guru_ips; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($tips - $ips) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($tips - $ips) < 0) ? 'Menambah ' . (- ($tips - $ips)) . ' pegawai' : 'Mendistribusikan kembali ' . ($tips - $ips) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($tips - $ips) < 0) ? 'badge-danger' : ($tips - $ips > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($tips - $ips) < 0) ? 'Menambah ' . (- ($tips - $ips)) . ' pegawai' : ($tips - $ips > 0 ? 'Mendistribusikan kembali ' . ($tips - $ips) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td>
@@ -702,8 +703,8 @@
                                             <td><?= $tsen = $hsen + $ssen ?></td>
                                             <td><?= $sen = $sekolah['sen']->guru_senbud; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($tsen - $sen) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($tsen - $sen) < 0) ? 'Menambah ' . (- ($tsen - $sen)) . ' pegawai' : 'Mendistribusikan kembali ' . ($tsen - $sen) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($tsen - $sen) < 0) ? 'badge-danger' : ($tsen - $sen > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($tsen - $sen) < 0) ? 'Menambah ' . (- ($tsen - $sen)) . ' pegawai' : ($tsen - $sen > 0 ? 'Mendistribusikan kembali ' . ($tsen - $sen) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td>
@@ -725,8 +726,8 @@
                                             <td><?= $ttik = $htik + $stik ?></td>
                                             <td><?= $tik = $sekolah['tik']->guru_tik; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($ttik - $tik) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($ttik - $tik) < 0) ? 'Menambah ' . (- ($ttik - $tik)) . ' pegawai' : 'Mendistribusikan kembali ' . ($ttik - $tik) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($ttik - $tik) < 0) ? 'badge-danger' : ($ttik - $tik > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($ttik - $tik) < 0) ? 'Menambah ' . (- ($ttik - $tik)) . ' pegawai' : ($ttik - $tik > 0 ? 'Mendistribusikan kembali ' . ($ttik - $tik) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td>
@@ -748,8 +749,8 @@
                                             <td><?= $tpkn = $hpkn + $spkn ?></td>
                                             <td><?= $pkn = $sekolah['pkn']->guru_pkn; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($tpkn - $pkn) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($tpkn - $pkn) < 0) ? 'Menambah ' . (- ($tpkn - $pkn)) . ' pegawai' : 'Mendistribusikan kembali ' . ($tpkn - $pkn) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($tpkn - $pkn) < 0) ? 'badge-danger' : ($tpkn - $pkn > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($tpkn - $pkn) < 0) ? 'Menambah ' . (- ($tpkn - $pkn)) . ' pegawai' : ($tpkn - $pkn > 0 ? 'Mendistribusikan kembali ' . ($tpkn - $pkn) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td>
@@ -771,8 +772,8 @@
                                             <td><?= $tind = $hind + $sind ?></td>
                                             <td><?= $ind = $sekolah['ind']->guru_indo; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($tind - $ind) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($tind - $ind) < 0) ? 'Menambah ' . (- ($tind - $ind)) . ' pegawai' : 'Mendistribusikan kembali ' . ($tind - $ind) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($tind - $ind) < 0) ? 'badge-danger' : ($tind - $ind > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($tind - $ind) < 0) ? 'Menambah ' . (- ($tind - $ind)) . ' pegawai' : ($tind - $ind > 0 ? 'Mendistribusikan kembali ' . ($tind - $ind) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td>
@@ -794,8 +795,8 @@
                                             <td><?= $teng = $heng + $seng ?></td>
                                             <td><?= $eng = $sekolah['eng']->guru_eng; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($teng - $eng) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($teng - $eng) < 0) ? 'Menambah ' . (- ($teng - $eng)) . ' pegawai' : 'Mendistribusikan kembali ' . ($teng - $eng) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($teng - $eng) < 0) ? 'badge-danger' : ($teng - $eng > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($teng - $eng) < 0) ? 'Menambah ' . (- ($teng - $eng)) . ' pegawai' : ($teng - $eng > 0 ? 'Mendistribusikan kembali ' . ($teng - $eng) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td>
@@ -817,8 +818,8 @@
                                             <td><?= $tmat = $hmat + $smat ?></td>
                                             <td><?= $mat = $sekolah['mat']->guru_mat; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($tmat - $mat) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($tmat - $mat) < 0) ? 'Menambah ' . (- ($tmat - $mat)) . ' pegawai' : 'Mendistribusikan kembali ' . ($tmat - $mat) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($tmat - $mat) < 0) ? 'badge-danger' : ($tmat - $mat > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($tmat - $mat) < 0) ? 'Menambah ' . (- ($tmat - $mat)) . ' pegawai' : ($tmat - $mat > 0 ? 'Mendistribusikan kembali ' . ($tmat - $mat) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td>
@@ -841,8 +842,8 @@
                                             <td><?= $tis = $his + $sis ?></td>
                                             <td><?= $is = $sekolah['is']->guru_pai; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($tis - $is) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($tis - $is) < 0) ? 'Menambah ' . (- ($tis - $is)) . ' pegawai' : 'Mendistribusikan kembali ' . ($tis - $is) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($tis - $is) < 0) ? 'badge-danger' : ($tis - $is > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($tis - $is) < 0) ? 'Menambah ' . (- ($tis - $is)) . ' pegawai' : ($tis - $is > 0 ? 'Mendistribusikan kembali ' . ($tis - $is) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td>
@@ -865,8 +866,8 @@
                                             <td><?= $tka = $hka + $ska ?></td>
                                             <td><?= $ka = $sekolah['ka']->guru_katholik; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($tka - $ka) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($tka - $ka) < 0) ? 'Menambah ' . (- ($tka - $ka)) . ' pegawai' : 'Mendistribusikan kembali ' . ($tka - $ka) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($tka - $ka) < 0) ? 'badge-danger' : ($tka - $ka > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($tka - $ka) < 0) ? 'Menambah ' . (- ($tka - $ka)) . ' pegawai' : ($tka - $ka > 0 ? 'Mendistribusikan kembali ' . ($tka - $ka) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td>
@@ -889,8 +890,8 @@
                                             <td><?= $tkr = $hkr + $skr ?></td>
                                             <td><?= $kr = $sekolah['kr']->guru_kristen; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($tkr - $kr) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($tkr - $kr) < 0) ? 'Menambah ' . (- ($tkr - $kr)) . ' pegawai' : 'Mendistribusikan kembali ' . ($tkr - $kr) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($tkr - $kr) < 0) ? 'badge-danger' : ($tkr - $kr > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($tkr - $kr) < 0) ? 'Menambah ' . (- ($tkr - $kr)) . ' pegawai' : ($tkr - $kr > 0 ? 'Mendistribusikan kembali ' . ($tkr - $kr) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td>
@@ -913,8 +914,8 @@
                                             <td><?= $tbu = $hbu + $sbu ?></td>
                                             <td><?= $bu = $sekolah['bu']->guru_budha; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($tbu - $bu) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($tbu - $bu) < 0) ? 'Menambah ' . (- ($tbu - $bu)) . ' pegawai' : 'Mendistribusikan kembali ' . ($tbu - $bu) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($tbu - $bu) < 0) ? 'badge-danger' : ($tbu - $bu > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($tbu - $bu) < 0) ? 'Menambah ' . (- ($tbu - $bu)) . ' pegawai' : ($tbu - $bu > 0 ? 'Mendistribusikan kembali ' . ($tbu - $bu) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td>
@@ -937,8 +938,8 @@
                                             <td><?= $thi = $hhi + $shi ?></td>
                                             <td><?= $hi = $sekolah['hi']->guru_hindu; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($thi - $hi) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($thi - $hi) < 0) ? 'Menambah ' . (- ($thi - $hi)) . ' pegawai' : 'Mendistribusikan kembali ' . ($thi - $hi) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($thi - $hi) < 0) ? 'badge-danger' : ($thi - $hi > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($thi - $hi) < 0) ? 'Menambah ' . (- ($thi - $hi)) . ' pegawai' : ($thi - $hi > 0 ? 'Mendistribusikan kembali ' . ($thi - $hi) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td>
@@ -961,8 +962,8 @@
                                             <td><?= $tpjok = $hpjok + $spjok ?></td>
                                             <td><?= $pjok = $sekolah['pjok']->guru_pjok; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($tpjok - $pjok) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($tpjok - $pjok) < 0) ? 'Menambah ' . (- ($tpjok - $pjok)) . ' pegawai' : 'Mendistribusikan kembali ' . ($tpjok - $pjok) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($tpjok - $pjok) < 0) ? 'badge-danger' : ($tpjok - $pjok > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($tpjok - $pjok) < 0) ? 'Menambah ' . (- ($tpjok - $pjok)) . ' pegawai' : ($tpjok - $pjok > 0 ? 'Mendistribusikan kembali ' . ($tpjok - $pjok) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td>
@@ -985,8 +986,8 @@
                                             <td><?= $tin = $hin + $sin ?></td>
                                             <td><?= $in = $sekolah['in']->guru_inklusi; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($tin - $in) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($tin - $in) < 0) ? 'Menambah ' . (- ($tin - $in)) . ' pegawai' : 'Mendistribusikan kembali ' . ($tin - $in) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($tin - $in) < 0) ? 'badge-danger' : ($tin - $in > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($tin - $in) < 0) ? 'Menambah ' . (- ($tin - $in)) . ' pegawai' : ($tin - $in > 0 ? 'Mendistribusikan kembali ' . ($tin - $in) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td> -->
@@ -1010,8 +1011,8 @@
                                             <td><?= $tpb = $hpb + $spb ?></td>
                                             <td><?= $pb = $sekolah['pb']->pramu_bakti; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($tpb - $pb) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($tpb - $pb) < 0) ? 'Menambah ' . (- ($tpb - $pb)) . ' pegawai' : 'Mendistribusikan kembali ' . ($tpb - $pb) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($tpb - $pb) < 0) ? 'badge-danger' : ($tpb - $pb > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($tpb - $pb) < 0) ? 'Menambah ' . (- ($tpb - $pb)) . ' pegawai' : ($tpb - $pb > 0 ? 'Mendistribusikan kembali ' . ($tpb - $pb) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td>
@@ -1034,8 +1035,8 @@
                                             <td><?= $tpk = $hpk + $spk ?></td>
                                             <td><?= $pk = $sekolah['pk']->penjaga_kebersihan; ?></td>
                                             <td>
-                                                <span class="badge rounded-pill <?= (($tpk - $pk) < 0) ? 'badge-danger' : 'badge-success'; ?>">
-                                                    <?= (($tpk - $pk) < 0) ? 'Menambah ' . (- ($tpk - $pk)) . ' pegawai' : 'Mendistribusikan kembali ' . ($tpk - $pk) . ' pegawai '; ?>
+                                                <span class="badge rounded-pill <?= (($tpk - $pk) < 0) ? 'badge-danger' : ($tpk - $pk > 0 ? 'badge-warning' : 'badge-success'); ?>">
+                                                    <?= (($tpk - $pk) < 0) ? 'Menambah ' . (- ($tpk - $pk)) . ' pegawai' : ($tpk - $pk > 0 ? 'Mendistribusikan kembali ' . ($tpk - $pk) . ' pegawai ' : 'Sudah Sesuai'); ?>
                                                 </span>
                                             </td>
                                             <!-- <td>

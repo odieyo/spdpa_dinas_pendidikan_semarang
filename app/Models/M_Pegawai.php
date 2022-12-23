@@ -19,17 +19,15 @@ class M_Pegawai extends Model
         'ket', 'ket2', 'tmt', 'created_at', 'updated_at'
     ];
     protected $useTimestamps = true;
-    protected $useSoftDeletes = true;
     protected $created_field = 'created_at';
     protected $updated_field = 'updated_at';
-    protected $deleted_field = 'deleted_at';
 
 
     public function listSekolah($jenjang)
     {
         $db      = \Config\Database::connect();
         $builder = $db->table('pegawai');
-        $sd = $builder->where(['jenjang' => $jenjang])->orderBy('unit_kerja', 'asc');
+        $sd = $builder->where('jenjang', $jenjang)->orderBy('unit_kerja', 'asc');
         return $sd->get()->getResultArray();
     }
     public function getPegawai($slug)
